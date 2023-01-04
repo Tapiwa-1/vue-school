@@ -6,16 +6,34 @@ export const useAuthStore = defineStore("auth",{
         authUser: null,
         authErrors: [],
         authStatus:  null,
+        token: null,
+        firstName:null,
+        lastName:null,
+        email:null,
     }),
-    getters:{
-        user: (state)=>state.authUser,
-        errors: (state)=>state.authErrors,
-        status: (state)=>state.authStatus,
-    },
+    // getters:{
+    //     user: (state)=>state.authUser,
+    //     errors: (state)=>state.authErrors,
+    //     status: (state)=>state.authStatus,
+    //     token: (state)=>state.token,
+    // },
     actions:{
+        setUserDetails(res) {
+            console.log('setUserDetails', res.data)
+            this.$state.id = res.data.user.id
+            this.$state.token = res.data.token
+            this.$state.firstName = res.data.user.first_name
+            this.$state.lastName = res.data.user.last_name
+            this.$state.email = res.data.user.email
+        },
+        // getToken () {
+        //     return null;
+        // },
         async getToken(){
             //get token
-            await axios.get("/sanctum/csrf-cookie");
+            const data = await axios.get("/sanctum/csrf-cookie");
+            this.token = data.data;
+
         },
         async getUser() {
             //get token

@@ -1,5 +1,5 @@
 <template>
-  <authLayout>
+  <authLayout :isLoginForm=false>
     <template v-slot:headingSlot>
         Sign In to your account
     </template>
@@ -31,12 +31,15 @@
     </template>
   </authLayout>
 </template>
-
+ 
 <script setup>
 import textInput from '../../components/textInput.vue';
 import submitFormBtn from '../../components/submitFormBtn.vue';
-import authLayout from '../../components/authLayout.vue'
+import authLayout from '../../components/authLayout.vue';
+import { useAuthStore } from '../../stores/auth-store';
+import { useRouter } from 'vue-router';
 
+const authStore = useAuthStore();
 </script>
 
 <style>
